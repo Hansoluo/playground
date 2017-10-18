@@ -1,0 +1,16 @@
+{% extends "home.html" %}
+{% block content %}
+<div class="draft-list">
+  <div class="container container-long">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="panel-title">素材</div>
+              </div>
+              <div class="panel-body">
+            {% for i in tag_drafts %}
+                <p>{{ (i.body,i.timestamp) }}</b></p>
+            {% endfor %}
+  </div>
+</div>
+
+{% endblock %}
