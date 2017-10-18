@@ -12,21 +12,20 @@ def init_db():
 @app.route('/', methods=['GET','POST'])
 def main():
     """主页面，查询用户数据渲染页面，按钮跳转页面"""
+    drafts = Draft.query.filter_by(author_id="user_id").all()
+    a = []
+    for i in drafts:
+        a.append(i.tag)
+    tag_list = Counter(a).most_common()
+
     if 'new_draft' in request.form.keys():
         return render_template('draft.html')
     elif 'tag' in request.form.keys():
-        print(request.form)
-        print(request.form['tag'])
         tag_drafts = Draft.query.filter_by(tag=request.form['tag']).all()
-        return render_template('tag.html', tag_drafts=tag_drafts)
+        return render_template('tag.html', tag_drafts=tag_drafts, tag_list=tag_list)
     else:
-        drafts = Draft.query.filter_by(author_id="user_id").all()
-        a = []
         nothing = 1
-        for i in drafts:
-            a.append(i.tag)
-        tag_list = Counter(a).most_common()
-        return render_template('home.html', drafts=drafts, tag_list=tag_list, nothing=nothing)
+        return render_template('home.html', drafts=drafts, tag_list=tag_list,nothing=nothing)
 
 # @app.route('/tag', methods=['GET','POST'])
 # def tag():
