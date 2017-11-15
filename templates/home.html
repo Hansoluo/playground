@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+    <title>Fluent Draft</title>
+  </head>
+  <style>
+    .container-long {
+      max-width: 1200px;
+      margin: 20px auto;
+    }
+    .width-limit {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .nav li {
+      float: left;
+    }
+ </style>
+  <body>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.css">
+    <link href = "//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel = "stylesheet">
+  <body>
+
+    <div class="navbar navbar-default" role="navigation">
+      <div class="width-limit">
+          <div class="navbar-header">
+            <a href="/" class="navbar-brand">
+              Fluent Draft <i class="icon-pencil"></i> </a>
+          </div>
+          <ul class="nav navbar-nav">
+            <li><a href="/draft">写素材</a></li>
+            <li><a href="/article">写文章</a></li>
+          </ul>
+      </div>
+    </div>
+
+
+    <div class="tag-list">
+      <div class="container container-long">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+            <div class="panel-title">标签</div>
+                  </div>
+                  <div class="panel-body">
+                {% for i,cnt in tag_list %}
+                <form class="container container-small" action="/" method="post">
+                  <div class="btn-group">
+                      <button class="btn btn-link" type="submit" value={{i}} name="tag">{{ i,cnt }}</b></button>
+                  </div>
+                </form>
+                {% endfor %}
+      </div>
+    </div>
+
+
+    {% if nothing %}
+    <div class="draft-list">
+      <div class="container container-long">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+            <div class="panel-title">素材</div>
+                  </div>
+                  <div class="panel-body">
+                {% for i in drafts[::-1] %}
+                    <p>{{ (i.body,i.timestamp) }}</b></p>
+                {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+
+    {% block content %}
+    {% endblock %}
+
+  </body>
+</html>
